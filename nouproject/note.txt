@@ -1,0 +1,35 @@
+here we create three models which names are
+
+student:- it contain some fields which are- rollno,name,fname,mname,gender ,address,program,branch,year,contactno,emailaddress,reg-date.
+
+enquiry:-name,gender,address,contactno,emailaddress,enquirytext,enquirydate.
+
+login:-userid,password,usertype,status.
+and after this we want to register your models in admin.py
+and write this code in admin.py
+   from . models import Student,Login,Enquiry
+   # Register your models here.
+   admin.site.register(Student)
+   admin.site.register(Login)
+   admin.site.register(Enquiry)
+
+After this we want to migrate all these files by using command
+    python manage.py makemigrations
+    python manage.py migrate
+
+After this process we have to create superuser in your project which is create by using this command
+:-- python manage.py create superuser
+     give userid:- nou
+     give password:-nou
+and now we have to create a folder in app folder which name is static
+in static folder we have to create three other folders which name continously css,js,images
+for creating a master page we should need to create a block in parent page
+        {% block main %}
+        {% endblock main%}
+and after thiser can make child class html page by using 
+{% extends "parent.html"%}
+{% block main %}
+
+ you can write here block of code
+
+{% endblock main %}

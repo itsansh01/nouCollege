@@ -1,0 +1,105 @@
+{% extends "parent.html"%}
+{% block main %}
+<script>
+function validate()
+{
+  var name=document.getElementById("name");
+  var contactno=document.getElementById("contactno");
+  var emailaddress=document.getElementById("emailaddress");
+  var emailexp=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (name.value=="" || name.value==null)
+  {
+    alert('Please Enter Name');
+    name.focus();
+  }
+  else if (contactno.value=="" || contactno.value==null)
+  {
+    alert('Please Enter ContactNo');
+    contactno.focus();
+  }
+  else if (isNaN(contactno.value))
+  {
+    alert('Please Enter numbers only ');
+    contactno.focus();
+  }
+  else if (contactno.value.length!=10)
+  {
+    alert('Please Enter Valid Contact Number');
+    contactno.focus();
+  }
+  else if (emailaddress.value=="" || emailaddress.value==null)
+  {
+    alert('Please Enter EmailAddress');
+    emailaddress.focus();
+  }
+  else if (!emailexp.test(emailaddress.value))
+  {
+      alert('please Enter valid email address');
+      emailaddress.focus();
+  }
+  else
+  {
+   document.getElementById("frmcontactus").submit();
+  }
+}
+</script>
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+      </div>
+    </div>
+
+  </main>
+
+{% if messages %}
+ {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{message}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+ {% endfor %}
+{% endif %}
+<h1 style="text-align: center; margin-top: 100px;">Enquiry Form</h1>
+<form class="form-group" id="frmcontactus" onsubmit="event.preventDefault();validate();" method="post" action="{% url 'nouapp:contactus' %}" >
+{% csrf_token %}
+<table class="table" style="width: 80%;margin: auto;">
+  <tr>
+    <td>Enter Name</td>
+    <td><input type="text" name="name" class="form-control" id="name"/></td>
+  </tr>
+  <tr>
+    <td>Select Gender</td>
+    <td><input type="radio" name="gender" value="male" class="form-check-input"/>&nbsp;&nbsp;&nbsp;MALE&nbsp;&nbsp;
+        <input type="radio" name="gender" value="female" class="form-check-input"/>&nbsp;&nbsp;&nbsp;FEMALE</td>
+  </tr>
+  <tr>
+    <td>Enter Your Address</td>
+    <td><textarea name="address" class="form-control"></textarea></td>
+  </tr>
+  <tr>
+    <td>Contact No</td>
+    <td><input type="text" name="contactno" class="form-control" id="contactno"/></td>
+  </tr>
+  <tr>
+    <td>Email Address</td>
+    <td><input type="text" name="emailaddress" class="form-control" id="emailaddress"/></td>
+  </tr>
+  <tr>
+    <td>Enter Enquiry Text</td>
+    <td><textarea name="enquirytext" class="form-control"></textarea></td>
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-success">Submit</button></td>
+    <td>&nbsp;&nbsp;&nbsp;<button type="reset" class="btn btn-outline-danger" >Clear</button></td>
+  </tr>
+</table>
+
+</form>
+
+{% endblock main %}

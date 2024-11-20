@@ -1,0 +1,198 @@
+{% extends "parent.html"%}
+{% block main %}
+<script>
+    function validate()
+    {
+        var rollno=document.getElementById("rollno");
+        var name=document.getElementById("name");
+        var fname=document.getElementById("fname");
+        var mname=document.getElementById("mname");
+        var contactno=document.getElementById("contactno");
+        var emailaddress=document.getElementById("emailaddress");
+        var emailexp=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var password=document.getElementById("password");
+        var confirmpassword=document.getElementById("confirmpassword");
+        if (rollno.value=="" || rollno.value==null)
+        {
+            alert('Please Enter Rollno');
+            rollno.focus();
+        }
+        else if (name.value=="" || name.value==null)
+        {
+            alert('Please Enter Name');
+            name.focus();
+        }
+        else if (fname.value=="" ||fname.value==null)
+        {
+            alert('Plesease Enter Father Name');
+            fname.focus();
+        }
+        else if (mname.value=="" || mname.value==null)
+        {
+            alert('Please Enter Mother Name');
+            mname.focus();
+        }
+        else if (contactno.value=="" || contactno.value==null)
+        {
+            alert('Please Enter Contact No');
+            contactno.focus();
+        }
+        else if (isNaN(contactno.value))
+        {
+           alert('Please Enter numbers only ');
+           contactno.focus();
+        }
+        else if (contactno.value.length!=10)
+        {
+            alert("Please Enter Full Contact No");
+            contactno.focus();
+        }
+        else if (emailaddress.value=="" || emailaddress.value==null)
+        {
+            alert('please Enter Email address');
+            emailaddress.focus();
+        }
+        else if (!emailexp.test(emailaddress.value))
+        {
+            alert('Please Enter Valid Email');
+            emailaddress.focus();
+        }
+        else if (password.value=="" || password.value==null)
+        {
+            alert('Please Enter Password');
+            password.focus();
+        }
+        else if (password.value.length<8)
+        {
+            alert('Please Enter  atleast 8 Characters');
+            password.focus();
+        }
+        else if (confirmpassword.value=="" || confirmpassword.value==null)
+        {
+            alert('Please Enter Confirm password');
+            confirmpassword.focus();
+        }
+        else if (confirmpassword.value!=password.value)
+        {
+            alert('Password is not match');
+            confirmpassword.focus();
+        }
+        else 
+        {
+            document.getElementById("frmregistration").submit();
+        }
+    }
+    </script>
+
+    <div class="registration-div">
+
+            
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <form class="form-group" id="frmregistration" onsubmit="event.preventDefault();validate();" method="POST" action="{% url 'nouapp:registration' %}">
+        {% csrf_token %}
+
+            <h1 style="text-align: center; margin-top: 150px;">Student Registration</h1>
+            <table class="table table-bordered" style="margin: 80px 280px;width: 60%; padding: 100px;">    
+
+                <tr>
+                    <td>Roll No</td>
+                    <td><input type="number" class="form-control" name="rollno" id="rollno"/></td>
+                </tr>
+                <tr>
+                    <td>Enter Your Name</td>
+                    <td><input type="text" class="form-control" name="name" id="name"/></td>
+                </tr>
+                <tr>
+                    <td>Enter Father Name</td>
+                    <td><input type="text" class="form-control" name="fname" id="fname"/></td>
+                </tr>
+                <tr>
+                    <td>Enter Mother Name</td>
+                    <td><input type="text" class="form-control" name="mname" id="mname"/></td>
+                </tr>
+                <tr>
+                    <td>Select Your Gender</td>
+                    <td><input type="radio" class="form-check-input" name="gender" value="male"/>&nbsp;&nbsp;MALE
+                        <input type="radio" class="form-check-input" name="gender" value="female"/>&nbsp;&nbsp;FEMALE</td>
+                </tr>
+                <tr>
+                    <td>Enter Your Address</td>
+                    <td><textarea name="address" class="form-control"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Select Program</td>
+                    <td>
+                        <select class="form-control" name="program">
+                            <option selected>--Select Your Program--</option>
+
+                                {% for p in program %}
+
+                                    <option value="{{p.program}}">{{p.program}}</option>
+
+                                {% endfor %}
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Branch</td>
+                    <td>
+                        <select class="form-control" name="branch">
+                            <option selected>--Select Your Branch--</option>
+
+                                {% for b in branch %}
+
+                                    <option value="{{b.branch}}">{{b.branch}}</option>
+
+                                {% endfor %}
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Year</td>
+                    <td><select class="form-control" name="year">
+                        <option selected>--Select Your Year--</option>
+
+                            {% for y in year %}
+
+                                <option value="{{y.year}}">{{y.year}}</option>
+
+                            {% endfor %}
+                    </select></td>
+                </tr>
+                
+                <tr>
+                    <td>Enter Contact No</td>
+                    <td><input type="text" class="form-control" name="contactno" id="contactno"/></td>
+                </tr>
+                <tr>
+                    <td>Enter Email Address</td>
+                    <td><input type="text" class="form-control" name="emailaddress" id="emailaddress"/></td>
+                </tr>
+                <tr>
+                    <td>Enter Password</td>
+                    <td><input type="password" name="password" class="form-control" id="password"/></td>
+                </tr>
+                <tr>
+                    <td>Confirm Your Password</td>
+                    <td><input type="password" name="confirmpassword" class="form-control" id="confirmpassword"/></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-success">Submit</button></td>
+                    <td>&nbsp;&nbsp;&nbsp;<button type="reset" class="btn btn-outline-danger" >Clear</button></td>
+                </tr>
+            </table>
+        </form>
+
+
+    </div>
+
+{% endblock main %}

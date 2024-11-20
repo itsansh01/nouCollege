@@ -1,0 +1,21 @@
+{% extends "studentparent.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 style="text-align:center;">Post Answer</h1>
+            <form class="form-group" action="{% url 'studentapp:postans'%}" method="post">
+                {% csrf_token %}
+               <table class="table table-bordered text-light" style="margin: auto;width: 70%;">
+                   <tr>
+                     <td>Enter Answer</td>
+                     <td><textarea class="form-control text-light" name="answer"></textarea></td>
+                   </tr>
+                   <tr>
+                    <td><input type="hidden" name="qid" value="{{qid}}"/></td>
+                    <td><button type="submit" class="btn btn-warning"><i class="fa fa-paper-plane"></i></button></td>
+                   </tr>
+               </table>
+            </form>   
+        </div>
+    </div>
+{% endblock body %}

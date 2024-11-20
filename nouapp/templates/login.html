@@ -1,0 +1,66 @@
+{% extends "parent.html"%}
+{% block main %}
+<script>
+    function validate()
+    {
+       var userid=document.getElementById("userid");
+       var password=document.getElementById("password");
+       if (userid.value=="" || userid.value==null)
+       {
+         alert('Please Enter UserId');
+         userid.focus();
+       }
+       else if (password.value=="" || password.value==null)
+       {
+        alert('Please Enter Password');
+        password.focus();
+       }
+       else
+       {
+        document.getElementById("frmlogin").submit();
+       }
+    }
+
+</script>
+{% if messages %}
+{% for message in messages %}
+   <div class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>{{message}}</strong>
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+{% endfor %}
+{% endif %}
+<h1 style="text-align: center; margin-top: 100px;">Login Here</h1>
+<div class="login-div">
+
+   <form class="login-form" id="frmlogin" onsubmit="event.preventDefault();validate();" method="post" action="{% url 'nouapp:login' %}" >
+    {% csrf_token%}
+    <table class="table table-bordered" style="margin: 50px 280px;width: 60%; padding: 10px;">
+     <tr>
+         <td>UserID/RollNo</td>
+         <td><input type="text" name="userid" id="userid" class="form-control"/></td>
+     </tr>
+     <tr>
+        <td>Password</td>
+        <td><input type="password" name="password" id="password" class="form-control"/></td>
+     </tr>
+     <tr>
+        <td>User Type</td>
+        <td><select class="form-control" name="usertype">
+            <option selected>--Select User Type--</option>
+            <option value="student">Student</option>
+            <option value="admin">Administrator</option>
+
+        </select></td>
+     </tr>
+     <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-success">Login</button></td>
+     </tr>
+    </table>
+</form>
+
+</div>
+
+
+{% endblock main %}

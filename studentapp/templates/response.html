@@ -1,0 +1,72 @@
+{% extends "studentparent.html" %}
+{% block body %}
+<script>
+    function validate()
+    {
+        var responsetype=document.getElementById('responsetype');
+        var subject=document.getElementById('subject');
+        var responsetext=document.getElementById('responsetext');
+        if (responsetype.value=="" || responsetype==null)
+        {
+          responsetype.focus()
+        }
+        else if (subject.value=="" || subject.value==null)
+        {
+            alert('Please Enter Subject');
+            subject.focus()
+        }
+        else if (responsetext=="" || responsetext==null)
+        {
+            alert('Pleease write something in subject');
+            responsetext.focus()
+        }
+        else
+        {
+            document.getElementById("response").submit();
+        }
+    }
+</script>
+    <div class="row">
+        <div class="col-sm-12">
+            {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+           {% endfor %}
+           {% endif %}
+            <h1 style="text-align:center;">Submit Your Feedback/Complain</h1>   
+            <form class="form-group"  id="response" onsubmit="event.preventDefault();validate();" method="post" action="{% url 'studentapp:response' %}">
+                {% csrf_token %}
+                <table class="table table-bordered text-light" style="margin: auto;width: 80%;">
+                    <tr>
+                        <td>Select Response Type</td>
+                        <td>
+                            <select name="responsetype" id="responsetype" class="form-control" style="color: white;">
+                                <option selected>--Select Response Type--</option>
+                                <option value="complain">Complain</option>
+                                <option value="feedback">Feedback</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enter Subject</td>
+                        <td><input type="text" name="subject" class="form-control" style="color: white;" id="subject"/></td>>
+                    </tr>
+                    <tr>
+                        <td>Enter Response Text</td>
+                        <td><textarea name="responsetext" class="form-control" style="color: white;" id="responsetext"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock body %}

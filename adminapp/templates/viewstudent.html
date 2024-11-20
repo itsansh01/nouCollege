@@ -1,0 +1,46 @@
+{% extends "adminparent.html" %}
+{% block body %}
+    <div class="row">
+
+        <h1 style="text-align:center;">Student Management Portal</h1> 
+        
+        <div class="col-sm-12" style="overflow-x: scroll;"> 
+            
+            <table class="table table-bordered text-light" style="margin: 25px; padding: 50px; font-family: cursive; font-weight: 300;">
+                <tr style="color: gold; font-size: 1.2rem;">
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Program</th>
+                    <th>Branch</th>
+                    <th>Year</th>
+                    <th>Contact No</th>
+                    <th>E-Mail</th>
+                    <th>Reg. Date</th>
+                </tr>
+                {% for s in student %}
+
+                    <tr>
+                        <td>{{s.rollno}}</td>
+                        <td>{{s.name}}</td>
+                        <td>{{sfname.}}</td>
+                        <td>{{s.mname}}</td>
+                        <td>{{s.gender}}</td>
+                        <td>{{s.address}}</td>
+                        <td>{{s.program}}</td>
+                        <td>{{s.branch}}</td>
+                        <td>{{s.year}}</td>
+                        <td>{{s.contactno}}</td>
+                        <td>{{s.emailaddress}}</td>
+                        <td>{{s.regdate}}</td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+              
+        </div>
+    </div>
+{% endblock body %}
